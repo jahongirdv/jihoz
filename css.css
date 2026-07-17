@@ -1,0 +1,487 @@
+/* ===== ОБЩИЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #eef2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    padding: 20px;
+}
+
+.card {
+    width: 820px;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0, 20, 40, 0.12);
+    padding: 32px 36px 40px;
+}
+
+/* ===== ШАПКА ===== */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.card-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #1a2a3f;
+    letter-spacing: -0.3px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #eef3f9;
+    padding: 8px 18px 8px 16px;
+    border-radius: 60px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #2a4058;
+    cursor: default;
+}
+
+.menu-badge i {
+    font-size: 17px;
+    color: #4a6a8a;
+}
+
+.btn-create {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a3a5c;
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px 8px 18px;
+    border-radius: 60px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.15s;
+    font-family: inherit;
+}
+
+.btn-create:hover {
+    background: #0f2d4a;
+    box-shadow: 0 4px 12px rgba(26, 58, 92, 0.25);
+}
+
+/* ===== СЕКЦИИ ===== */
+.section {
+    margin-bottom: 32px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #1f3147;
+    margin-bottom: 16px;
+}
+
+.section-title i {
+    font-size: 20px;
+    color: #4f7193;
+    width: 24px;
+    text-align: center;
+}
+
+/* ===== ЗАГРУЗКА ИЗОБРАЖЕНИЙ ===== */
+.upload-area {
+    display: flex;
+    gap: 16px;
+}
+
+.upload-box {
+    flex: 1;
+    background: #f6f9fd;
+    border: 2px dashed #d4dfec;
+    border-radius: 24px;
+    padding: 32px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: default;
+    min-height: 120px;
+    transition: 0.15s;
+}
+
+.upload-box i {
+    font-size: 34px;
+    color: #6c8bb0;
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+.upload-box span {
+    font-size: 15px;
+    font-weight: 500;
+    background: #e9f0f8;
+    padding: 6px 18px;
+    border-radius: 40px;
+    color: #1f334b;
+}
+
+.upload-box:hover {
+    background: #f0f6fe;
+    border-color: #b6cce3;
+}
+
+/* ===== КЛАССИФИКАЦИЯ ===== */
+.classification-grid {
+    display: flex;
+    gap: 30px;
+    background: #f6f9fd;
+    border-radius: 16px;
+    padding: 16px 24px;
+    border: 1px solid #eaf0f7;
+}
+
+.class-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.class-item label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5a7899;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.class-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a2a3f;
+    background: #ffffff;
+    padding: 4px 18px;
+    border-radius: 40px;
+    border: 1px solid #dce6f2;
+    min-width: 100px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.class-value.found {
+    background: #e8f5e9;
+    border-color: #66bb6a;
+    color: #2e7d32;
+}
+
+.class-value.not-found {
+    background: #ffebee;
+    border-color: #ef5350;
+    color: #c62828;
+}
+
+@keyframes highlightPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.class-value.pulse {
+    animation: highlightPulse 0.4s ease;
+}
+
+/* ===== ФОРМА ===== */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2a4058;
+}
+
+.form-group label::after {
+    content: " *";
+    color: #c0392b;
+    font-weight: 600;
+}
+
+.form-group:nth-child(3) label::after,
+.form-group:nth-child(4) label::after,
+.form-group:nth-child(5) label::after {
+    content: "";
+}
+
+.form-group input {
+    padding: 10px 16px;
+    border: 1px solid #dce6f2;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #1a2a3f;
+    background: #fafcff;
+    transition: 0.15s;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+}
+
+.form-group input::placeholder {
+    color: #8a9eb5;
+}
+
+.form-group input:focus {
+    border-color: #4f8ab0;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(79, 138, 176, 0.12);
+}
+
+.form-group input:hover {
+    border-color: #b6cce3;
+}
+
+.form-group input[readonly] {
+    background: #f4f8fc;
+    cursor: default;
+}
+
+/* ===== КОНТЕЙНЕРЫ ===== */
+.input-with-button {
+    position: relative;
+    display: flex;
+    gap: 8px;
+}
+
+.input-with-button input {
+    flex: 1;
+}
+
+.model-input-wrapper {
+    position: relative;
+}
+
+.btn-find {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #4f8ab0;
+    color: #ffffff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.15s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.btn-find:hover {
+    background: #3a6f92;
+    box-shadow: 0 4px 12px rgba(79, 138, 176, 0.3);
+}
+
+.btn-find:active {
+    transform: scale(0.97);
+}
+
+/* ===== ВЫПАДАЮЩИЕ СПИСКИ ===== */
+.suggestions-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #dce6f2;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 20, 40, 0.15);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.suggestions-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-track {
+    background: #f0f4fa;
+    border-radius: 3px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-thumb {
+    background: #b6cce3;
+    border-radius: 3px;
+}
+
+.suggestions-header {
+    padding: 12px 16px;
+    background: #f6f9fd;
+    border-bottom: 1px solid #eaf0f7;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5a7899;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.suggestion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: 0.1s;
+    border-bottom: 1px solid #f0f4fa;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background: #f0f6fe;
+}
+
+.suggestion-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a2a3f;
+}
+
+.suggestion-class {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.suggestion-section {
+    font-size: 12px;
+    color: #4f7193;
+    background: #e9f0f8;
+    padding: 2px 12px;
+    border-radius: 40px;
+    font-weight: 500;
+}
+
+.suggestion-point {
+    font-size: 12px;
+    color: #6c8bb0;
+    background: #f0f6fe;
+    padding: 2px 12px;
+    border-radius: 40px;
+    font-weight: 450;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 700px) {
+    .card {
+        padding: 24px 18px 30px;
+        border-radius: 20px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .card-header h1 {
+        font-size: 22px;
+    }
+
+    .header-actions {
+        flex-wrap: wrap;
+    }
+
+    .btn-create {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .classification-grid {
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 18px;
+    }
+
+    .class-item {
+        justify-content: space-between;
+    }
+
+    .upload-box {
+        min-height: 100px;
+        padding: 24px 16px 20px;
+    }
+
+    .input-with-button {
+        flex-direction: column;
+    }
+
+    .btn-find {
+        padding: 10px;
+        justify-content: center;
+    }
+
+    .suggestion-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .suggestion-class {
+        margin-left: 0;
+    }
+
+    .suggestions-dropdown {
+        max-height: 200px;
+    }
+}
+
+
+

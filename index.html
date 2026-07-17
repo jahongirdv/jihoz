@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Создание записи</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="css.css" />
+</head>
+<body>
+
+<div class="card">
+
+    <!-- ===== ШАПКА ===== -->
+    <div class="card-header">
+        <h1>Создание записи</h1>
+        <div class="header-actions">
+            <div class="menu-badge">
+                <i class="fas fa-bars"></i> Главное меню
+            </div>
+            <button class="btn-create">
+                <i class="fas fa-plus"></i> Создать
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== ИЗОБРАЖЕНИЯ УСТРОЙСТВА ===== -->
+    <div class="section">
+        <div class="section-title">
+            <i class="fas fa-image"></i> Изображения устройства
+        </div>
+        <div class="upload-area">
+            <div class="upload-box">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Загрузить файлы</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== КЛАССИФИКАЦИЯ ===== -->
+    <div class="section">
+        <div class="section-title">
+            <i class="fas fa-tags"></i> Классификация
+        </div>
+        <div class="classification-grid">
+            <div class="class-item">
+                <label>Раздел</label>
+                <div class="class-value" id="sectionDisplay">—</div>
+            </div>
+            <div class="class-item">
+                <label>Пункт</label>
+                <div class="class-value" id="pointDisplay">—</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ ИНФОРМАЦИЯ ===== -->
+    <div class="section">
+        <div class="section-title">
+            <i class="fas fa-microchip"></i> Основная информация об оборудовании
+        </div>
+        <div class="form-grid">
+            <!-- Фирма производитель -->
+            <div class="form-group">
+                <label>Фирма производитель</label>
+                <input type="text" id="firmInput" placeholder="Автоматически подставится" readonly />
+            </div>
+
+            <!-- Страна фирмы производителя -->
+            <div class="form-group">
+                <label>Страна фирмы производителя</label>
+                <input type="text" id="countryFirmInput" placeholder="Автоматически подставится" readonly />
+            </div>
+
+            <!-- Страна производство -->
+            <div class="form-group">
+                <label>Страна производство *</label>
+                <input type="text" id="countryInput" placeholder="Автоматически подставится" readonly />
+            </div>
+
+            <!-- НАИМЕНОВАНИЕ ОБОРУДОВАНИЯ -->
+            <div class="form-group">
+                <label>Наименование оборудования или прибора *</label>
+                <div class="input-with-button">
+                    <input type="text" id="equipmentName" placeholder="Например: кислородный концентратор" autocomplete="off" />
+                    <button class="btn-find" id="findBtn">
+                        <i class="fas fa-search"></i> Найти
+                    </button>
+                </div>
+            </div>
+
+            <!-- МОДЕЛЬ ОБОРУДОВАНИЯ -->
+            <div class="form-group">
+                <label>Модель оборудования *</label>
+                <div class="model-input-wrapper">
+                    <input type="text" id="modelInput" placeholder="Например: С856" autocomplete="off" />
+                </div>
+            </div>
+
+            <!-- Серийный/Заводской номер -->
+            <div class="form-group">
+                <label>Серийный/Заводской номер</label>
+                <input type="text" id="serialInput" placeholder="Введите серийный номер" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="type.js"></script>
+</body>
+</html>
