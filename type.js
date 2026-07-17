@@ -269,7 +269,7 @@ const equipmentDatabase = {
 };
 
 // ============================================================
-// БАЗА ДАННЫХ МОДЕЛЕЙ (модель → фирма + страна + наименование)
+// БАЗА ДАННЫХ МОДЕЛЕЙ
 // ============================================================
 const modelsDatabase = [
     { model: 'С856', manufacturer: 'United Products & Instruments, Inc', country: 'США', equipment: 'Лабораторная центрифуга' },
@@ -281,7 +281,7 @@ const modelsDatabase = [
 ];
 
 // ============================================================
-// ПОИСК ПО НАИМЕНОВАНИЮ (классификация)
+// ПОИСК ПО НАИМЕНОВАНИЮ
 // ============================================================
 function findEquipment() {
     const input = document.getElementById('equipmentName');
@@ -375,100 +375,30 @@ function showSuggestions(matches) {
 }
 
 // ============================================================
-// ПОИСК ПО МОДЕЛИ (фирма + страна + наименование)
+// ПОКАЗ СПИСКА МОДЕЛЕЙ
 // ============================================================
-function findModel() {
+function showModelSuggestions() {
     const input = document.getElementById('modelInput');
-    const firmInput = document.getElementById('firmInput');
-    const countryInput = document.getElementById('countryInput');
-    const countryFirmInput = document.getElementById('countryFirmInput');
-    const equipmentInput = document.getElementById('equipmentName');
     const suggestionsList = document.getElementById('modelSuggestionsList');
     const query = input.value.trim().toLowerCase();
 
+    if (!suggestionsList) return;
+
     if (!query) {
-        firmInput.value = '';
-        countryInput.value = '';
-        countryFirmInput.value = '';
-        firmInput.style.borderColor = '';
-        countryInput.style.borderColor = '';
-        countryFirmInput.style.borderColor = '';
-        if (suggestionsList) {
-            suggestionsList.style.display = 'none';
-            suggestionsList.innerHTML = '';
-        }
+        suggestionsList.style.display = 'none';
+        suggestionsList.innerHTML = '';
         return;
     }
 
-    let found = false;
-    for (const item of modelsDatabase) {
-        const modelLower = item.model.toLowerCase();
-        if (modelLower === query || modelLower.includes(query) || query.includes(modelLower)) {
-            firmInput.value = item.manufacturer;
-            countryInput.value = item.country;
-            countryFirmInput.value = item.country;
-            if (item.equipment && !equipmentInput.value) {
-                equipmentInput.value = item.equipment;
-                setTimeout(findEquipment, 100);
-            }
-            found = true;
-            firmInput.style.borderColor = '#66bb6a';
-            countryInput.style.borderColor = '#66bb6a';
-            countryFirmInput.style.borderColor = '#66bb6a';
-            setTimeout(() => {
-                firmInput.style.borderColor = '';
-                countryInput.style.borderColor = '';
-                countryFirmInput.style.borderColor = '';
-            }, 2000);
-            if (suggestionsList) {
-                suggestionsList.style.display = 'none';
-                suggestionsList.innerHTML = '';
-            }
-            return;
-        }
-    }
+    const matches = modelsDatabase.filter(item =>
+        item.model.toLowerCase().includes(query) ||
+        query.includes(item.model.toLowerCase())
+    );
 
-    if (!found) {
-        firmInput.value = '';
-        countryInput.value = '';
-        countryFirmInput.value = '';
-        firmInput.style.borderColor = '#ef5350';
-        countryInput.style.borderColor = '#ef5350';
-        countryFirmInput.style.borderColor = '#ef5350';
-        setTimeout(() => {
-            firmInput.style.borderColor = '';
-            countryInput.style.borderColor = '';
-            countryFirmInput.style.borderColor = '';
-        }, 2000);
-
-        // Проверяем частичные совпадения для списка
-        const partialMatches = modelsDatabase.filter(item =>
-            item.model.toLowerCase().includes(query) ||
-            query.includes(item.model.toLowerCase())
-        );
-
-        if (partialMatches.length > 0) {
-            showModelSuggestions(partialMatches);
-        } else {
-            if (suggestionsList) {
-                suggestionsList.style.display = 'none';
-                suggestionsList.innerHTML = '';
-            }
-        }
-    }
-}
-
-function showModelSuggestions(matches) {
-    const input = document.getElementById('modelInput');
-    let suggestionsList = document.getElementById('modelSuggestionsList');
-
-    if (!suggestionsList) {
-        const container = document.createElement('div');
-        container.id = 'modelSuggestionsList';
-        container.className = 'suggestions-dropdown';
-        container.style.display = 'none';
-        input.parentNode.appendChild(container);
-        suggestionsList = container;
+    if (matches.length === 0) {
+        suggestionsList.style.display = 'none';
+        suggestionsList.innerHTML = '';
+        return;
     }
 
     suggestionsList.innerHTML = '';
@@ -491,14 +421,19 @@ function showModelSuggestions(matches) {
             ${match.equipment ? `<div style="font-size:12px;color:#8a9eb5;width:100%;">${match.equipment}</div>` : ''}
         `;
         item.addEventListener('click', function() {
+            const equipmentInput = document.getElementById('equipmentName');
+            const wasEquipmentFilled = equipmentInput.value.trim() !== '';
+
             input.value = match.model;
             document.getElementById('firmInput').value = match.manufacturer;
             document.getElementById('countryInput').value = match.country;
             document.getElementById('countryFirmInput').value = match.country;
-            if (match.equipment) {
-                document.getElementById('equipmentName').value = match.equipment;
+
+            if (!wasEquipmentFilled && match.equipment) {
+                equipmentInput.value = match.equipment;
                 setTimeout(findEquipment, 100);
             }
+
             suggestionsList.style.display = 'none';
             suggestionsList.innerHTML = '';
 
@@ -515,19 +450,72 @@ function showModelSuggestions(matches) {
     });
 }
 
+// ============================================================
+// ПОИСК ПО МОДЕЛИ (точное совпадение)
+// ============================================================
+function findModel() {
+    const input = document.getElementById('modelInput');
+    const firmInput = document.getElementById('firmInput');
+    const countryInput = document.getElementById('countryInput');
+    const countryFirmInput = document.getElementById('countryFirmInput');
+    const equipmentInput = document.getElementById('equipmentName');
+    const query = input.value.trim().toLowerCase();
+
+    if (!query) {
+        firmInput.value = '';
+        countryInput.value = '';
+        countryFirmInput.value = '';
+        return;
+    }
+
+    let found = false;
+    for (const item of modelsDatabase) {
+        if (item.model.toLowerCase() === query) {
+            const wasEquipmentFilled = equipmentInput.value.trim() !== '';
+            firmInput.value = item.manufacturer;
+            countryInput.value = item.country;
+            countryFirmInput.value = item.country;
+            if (!wasEquipmentFilled && item.equipment) {
+                equipmentInput.value = item.equipment;
+                setTimeout(findEquipment, 100);
+            }
+            found = true;
+            firmInput.style.borderColor = '#66bb6a';
+            countryInput.style.borderColor = '#66bb6a';
+            countryFirmInput.style.borderColor = '#66bb6a';
+            setTimeout(() => {
+                firmInput.style.borderColor = '';
+                countryInput.style.borderColor = '';
+                countryFirmInput.style.borderColor = '';
+            }, 2000);
+            return;
+        }
+    }
+
+    if (!found) {
+        firmInput.value = '';
+        countryInput.value = '';
+        countryFirmInput.value = '';
+    }
+}
+
 // ===== ИНИЦИАЛИЗАЦИЯ =====
 document.addEventListener('DOMContentLoaded', function() {
     const equipmentInput = document.getElementById('equipmentName');
     const modelInput = document.getElementById('modelInput');
     const findBtn = document.getElementById('findBtn');
 
+    console.log('✅ База данных классификации загружена!');
+    console.log('📋 Всего записей классификации: ' + Object.keys(equipmentDatabase).length);
+    console.log('📋 Всего моделей: ' + modelsDatabase.length);
+
+    // НАИМЕНОВАНИЕ
     if (findBtn) {
         findBtn.addEventListener('click', function() {
             findEquipment();
         });
     }
 
-    // Автопоиск по наименованию
     let searchTimeout;
     equipmentInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
@@ -549,40 +537,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Автопоиск по модели
+    // МОДЕЛЬ
     let modelSearchTimeout;
     modelInput.addEventListener('input', function() {
         clearTimeout(modelSearchTimeout);
         modelSearchTimeout = setTimeout(function() {
             const query = modelInput.value.trim().toLowerCase();
+            document.getElementById('firmInput').value = '';
+            document.getElementById('countryInput').value = '';
+            document.getElementById('countryFirmInput').value = '';
             if (!query) {
                 const list = document.getElementById('modelSuggestionsList');
                 if (list) {
                     list.style.display = 'none';
                     list.innerHTML = '';
                 }
-                document.getElementById('firmInput').value = '';
-                document.getElementById('countryInput').value = '';
-                document.getElementById('countryFirmInput').value = '';
                 return;
             }
-
-            const matches = modelsDatabase.filter(item =>
-                item.model.toLowerCase().includes(query) ||
-                query.includes(item.model.toLowerCase())
-            );
-
-            if (matches.length > 0) {
-                showModelSuggestions(matches);
-            } else {
-                const list = document.getElementById('modelSuggestionsList');
-                if (list) {
-                    list.style.display = 'none';
-                    list.innerHTML = '';
-                }
-            }
-            findModel();
-        }, 300);
+            showModelSuggestions();
+        }, 200);
     });
 
     modelInput.addEventListener('keydown', function(e) {
@@ -591,14 +564,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const list = document.getElementById('modelSuggestionsList');
             if (list && list.style.display === 'block') {
                 const firstItem = list.querySelector('.suggestion-item');
-                if (firstItem) firstItem.click();
+                if (firstItem) {
+                    firstItem.click();
+                }
             } else {
                 findModel();
             }
         }
     });
 
-    // Закрытие списков при клике вне
+    modelInput.addEventListener('blur', function() {
+        setTimeout(function() {
+            const list = document.getElementById('modelSuggestionsList');
+            if (list && list.style.display === 'block') {
+                return;
+            }
+            findModel();
+        }, 300);
+    });
+
+    // ЗАКРЫТИЕ СПИСКОВ
     document.addEventListener('click', function(e) {
         const eqList = document.getElementById('suggestionsList');
         const modelList = document.getElementById('modelSuggestionsList');
@@ -612,8 +597,6 @@ document.addEventListener('DOMContentLoaded', function() {
             modelList.innerHTML = '';
         }
     });
-
-    console.log('✅ База данных классификации загружена!');
-    console.log('📋 Всего записей классификации: ' + Object.keys(equipmentDatabase).length);
-    console.log('📋 Всего моделей: ' + modelsDatabase.length);
 });
+
+

@@ -5,23 +5,28 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    width: 100%;
+    min-height: 100vh;
     background: #eef2f7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    align-items: flex-start;
     padding: 20px;
 }
 
+/* ===== КАРТОЧКА ===== */
 .card {
-    width: 820px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 1200px;
+    min-height: calc(100vh - 40px);
     background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 20, 40, 0.12);
-    padding: 32px 36px 40px;
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(0, 20, 40, 0.10);
+    padding: 36px 48px 180px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ===== ШАПКА ===== */
@@ -29,13 +34,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 16px;
 }
 
 .card-header h1 {
-    font-size: 26px;
+    font-size: 32px;
     font-weight: 600;
     color: #1a2a3f;
     letter-spacing: -0.3px;
@@ -44,37 +49,37 @@ body {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .menu-badge {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: #eef3f9;
-    padding: 8px 18px 8px 16px;
+    padding: 10px 22px 10px 18px;
     border-radius: 60px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     color: #2a4058;
     cursor: default;
 }
 
 .menu-badge i {
-    font-size: 17px;
+    font-size: 18px;
     color: #4a6a8a;
 }
 
 .btn-create {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: #1a3a5c;
     color: #ffffff;
     border: none;
-    padding: 8px 22px 8px 18px;
+    padding: 10px 26px 10px 22px;
     border-radius: 60px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: 0.15s;
@@ -83,12 +88,12 @@ body {
 
 .btn-create:hover {
     background: #0f2d4a;
-    box-shadow: 0 4px 12px rgba(26, 58, 92, 0.25);
+    box-shadow: 0 4px 16px rgba(26, 58, 92, 0.30);
 }
 
 /* ===== СЕКЦИИ ===== */
 .section {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
 .section:last-child {
@@ -98,17 +103,17 @@ body {
 .section-title {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 18px;
+    gap: 12px;
+    font-size: 20px;
     font-weight: 500;
     color: #1f3147;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .section-title i {
-    font-size: 20px;
+    font-size: 22px;
     color: #4f7193;
-    width: 24px;
+    width: 28px;
     text-align: center;
 }
 
@@ -123,29 +128,29 @@ body {
     background: #f6f9fd;
     border: 2px dashed #d4dfec;
     border-radius: 24px;
-    padding: 32px 20px 28px;
+    padding: 40px 20px 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: default;
-    min-height: 120px;
+    min-height: 140px;
     transition: 0.15s;
 }
 
 .upload-box i {
-    font-size: 34px;
+    font-size: 40px;
     color: #6c8bb0;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     opacity: 0.8;
 }
 
 .upload-box span {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     background: #e9f0f8;
-    padding: 6px 18px;
+    padding: 8px 24px;
     border-radius: 40px;
     color: #1f334b;
 }
@@ -158,21 +163,21 @@ body {
 /* ===== КЛАССИФИКАЦИЯ ===== */
 .classification-grid {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     background: #f6f9fd;
     border-radius: 16px;
-    padding: 16px 24px;
+    padding: 18px 28px;
     border: 1px solid #eaf0f7;
 }
 
 .class-item {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 18px;
 }
 
 .class-item label {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #5a7899;
     text-transform: uppercase;
@@ -180,14 +185,14 @@ body {
 }
 
 .class-value {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 500;
     color: #1a2a3f;
     background: #ffffff;
-    padding: 4px 18px;
+    padding: 6px 22px;
     border-radius: 40px;
     border: 1px solid #dce6f2;
-    min-width: 100px;
+    min-width: 140px;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -206,7 +211,7 @@ body {
 
 @keyframes highlightPulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.04); }
     100% { transform: scale(1); }
 }
 
@@ -218,7 +223,7 @@ body {
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px 24px;
+    gap: 18px 30px;
 }
 
 .form-group {
@@ -228,7 +233,7 @@ body {
 }
 
 .form-group label {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #2a4058;
 }
@@ -239,17 +244,18 @@ body {
     font-weight: 600;
 }
 
+.form-group:nth-child(1) label::after,
+.form-group:nth-child(2) label::after,
 .form-group:nth-child(3) label::after,
-.form-group:nth-child(4) label::after,
-.form-group:nth-child(5) label::after {
+.form-group:nth-child(6) label::after {
     content: "";
 }
 
 .form-group input {
-    padding: 10px 16px;
+    padding: 12px 18px;
     border: 1px solid #dce6f2;
-    border-radius: 12px;
-    font-size: 15px;
+    border-radius: 14px;
+    font-size: 16px;
     color: #1a2a3f;
     background: #fafcff;
     transition: 0.15s;
@@ -265,7 +271,7 @@ body {
 .form-group input:focus {
     border-color: #4f8ab0;
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(79, 138, 176, 0.12);
+    box-shadow: 0 0 0 4px rgba(79, 138, 176, 0.12);
 }
 
 .form-group input:hover {
@@ -281,7 +287,7 @@ body {
 .input-with-button {
     position: relative;
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .input-with-button input {
@@ -295,13 +301,13 @@ body {
 .btn-find {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     background: #4f8ab0;
     color: #ffffff;
     border: none;
-    padding: 0 20px;
-    border-radius: 12px;
-    font-size: 14px;
+    padding: 0 24px;
+    border-radius: 14px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     transition: 0.15s;
@@ -311,7 +317,7 @@ body {
 
 .btn-find:hover {
     background: #3a6f92;
-    box-shadow: 0 4px 12px rgba(79, 138, 176, 0.3);
+    box-shadow: 0 4px 16px rgba(79, 138, 176, 0.30);
 }
 
 .btn-find:active {
@@ -321,16 +327,16 @@ body {
 /* ===== ВЫПАДАЮЩИЕ СПИСКИ ===== */
 .suggestions-dropdown {
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 6px);
     left: 0;
     right: 0;
     background: #ffffff;
     border: 1px solid #dce6f2;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 20, 40, 0.15);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 20, 40, 0.18);
     max-height: 300px;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 9999;
     display: none;
 }
 
@@ -349,7 +355,7 @@ body {
 }
 
 .suggestions-header {
-    padding: 12px 16px;
+    padding: 14px 20px;
     background: #f6f9fd;
     border-bottom: 1px solid #eaf0f7;
     font-size: 13px;
@@ -366,11 +372,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 16px;
+    padding: 12px 20px;
     cursor: pointer;
     transition: 0.1s;
     border-bottom: 1px solid #f0f4fa;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
 }
 
@@ -383,7 +389,7 @@ body {
 }
 
 .suggestion-name {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     color: #1a2a3f;
 }
@@ -391,7 +397,7 @@ body {
 .suggestion-class {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -399,7 +405,7 @@ body {
     font-size: 12px;
     color: #4f7193;
     background: #e9f0f8;
-    padding: 2px 12px;
+    padding: 3px 14px;
     border-radius: 40px;
     font-weight: 500;
 }
@@ -408,16 +414,38 @@ body {
     font-size: 12px;
     color: #6c8bb0;
     background: #f0f6fe;
-    padding: 2px 12px;
+    padding: 3px 14px;
     border-radius: 40px;
     font-weight: 450;
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .card {
-        padding: 24px 18px 30px;
+        padding: 28px 24px 160px;
+        border-radius: 24px;
+        min-height: auto;
+    }
+
+    .card-header h1 {
+        font-size: 26px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 20px 16px 220px;
         border-radius: 20px;
+        min-height: auto;
     }
 
     .card-header {
@@ -441,17 +469,22 @@ body {
 
     .form-grid {
         grid-template-columns: 1fr;
-        gap: 14px;
+        gap: 12px;
     }
 
     .classification-grid {
         flex-direction: column;
         gap: 12px;
-        padding: 14px 18px;
+        padding: 16px 18px;
     }
 
     .class-item {
         justify-content: space-between;
+    }
+
+    .class-value {
+        min-width: 100px;
+        font-size: 15px;
     }
 
     .upload-box {
@@ -459,19 +492,23 @@ body {
         padding: 24px 16px 20px;
     }
 
+    .upload-box i {
+        font-size: 32px;
+    }
+
     .input-with-button {
         flex-direction: column;
     }
 
     .btn-find {
-        padding: 10px;
+        padding: 12px;
         justify-content: center;
     }
 
     .suggestion-item {
         flex-direction: column;
         align-items: flex-start;
-        gap: 4px;
+        gap: 6px;
     }
 
     .suggestion-class {
@@ -480,8 +517,13 @@ body {
 
     .suggestions-dropdown {
         max-height: 200px;
+        position: fixed;
+        top: auto;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-height: 50vh;
+        border-radius: 16px;
+        z-index: 99999;
     }
 }
-
-
-
