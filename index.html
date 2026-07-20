@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Создание записи</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
     <link rel="stylesheet" href="css.css" />
 </head>
 <body>
@@ -15,84 +18,103 @@
     <div class="card-header">
         <h1>Создание записи</h1>
         <div class="header-actions">
-            <div class="menu-badge">
-                <i class="fas fa-bars"></i> Главное меню
-            </div>
-            <button class="btn-create">
-                <i class="fas fa-plus"></i> Создать
-            </button>
+            <div class="menu-badge"><i class="fas fa-bars"></i> Главное меню</div>
+            <button class="btn-create"><i class="fas fa-plus"></i> Создать</button>
+            <button class="btn-export-header" id="exportHeaderBtn"><i class="fas fa-file-excel"></i> Экспорт</button>
         </div>
     </div>
 
     <!-- ===== ИЗОБРАЖЕНИЯ УСТРОЙСТВА ===== -->
     <div class="section">
-        <div class="section-title">
-            <i class="fas fa-image"></i> Изображения устройства
-        </div>
+        <div class="section-title"><i class="fas fa-image"></i> Изображения устройства</div>
         <div class="upload-area">
-            <div class="upload-box">
+            <div class="upload-box" id="uploadBox">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <span>Загрузить файлы</span>
+                <input type="file" id="fileInput" multiple accept="image/*" style="display:none;" />
+            </div>
+            <div class="upload-preview" id="previewContainer">
+                <div class="empty-text">📸 Здесь будут миниатюры загруженных фото</div>
             </div>
         </div>
+    </div>
+
+    <!-- ===== ЛАЙТБОКС ===== -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <button class="lightbox-nav prev" id="lightboxPrev">‹</button>
+        <img id="lightboxImage" src="" alt="Предпросмотр" />
+        <button class="lightbox-nav next" id="lightboxNext">›</button>
+        <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+        <button class="lightbox-close" id="lightboxClose">✕</button>
     </div>
 
     <!-- ===== КЛАССИФИКАЦИЯ ===== -->
-    <div class="section">
-        <div class="section-title">
-            <i class="fas fa-tags"></i> Классификация
+    <!-- ===== КЛАССИФИКАЦИЯ ===== -->
+<div class="section">
+    <div class="section-title">
+        <i class="fas fa-tags"></i> Классификация
+    </div>
+    <div class="classification-grid">
+        <div class="class-item">
+            <label>
+                <input type="checkbox" class="export-field-checkbox" data-field="section" checked />
+                Раздел
+            </label>
+            <div class="class-value" id="sectionDisplay">—</div>
         </div>
-        <div class="classification-grid">
-            <div class="class-item">
-                <label>Раздел</label>
-                <div class="class-value" id="sectionDisplay">—</div>
-            </div>
-            <div class="class-item">
-                <label>Пункт</label>
-                <div class="class-value" id="pointDisplay">—</div>
-            </div>
+        <div class="class-item">
+            <label>
+                <input type="checkbox" class="export-field-checkbox" data-field="point" checked />
+                Пункт
+            </label>
+            <div class="class-value" id="pointDisplay">—</div>
         </div>
     </div>
-
+</div>
     <!-- ===== ОСНОВНАЯ ИНФОРМАЦИЯ ===== -->
     <div class="section">
         <div class="section-title">
             <i class="fas fa-microchip"></i> Основная информация об оборудовании
+            
         </div>
         <div class="form-grid">
             <!-- Фирма производитель -->
             <div class="form-group">
-                <label>Фирма производитель</label>
+                <label>
+                    <input type="checkbox" class="export-field-checkbox" data-field="manufacturer" checked />
+                    Фирма производитель
+                </label>
                 <input type="text" id="firmInput" placeholder="Автоматически подставится" readonly />
-            </div>
-
-            <!-- Страна фирмы производителя -->
-            <div class="form-group">
-                <label>Страна фирмы производителя</label>
-                <input type="text" id="countryFirmInput" placeholder="Автоматически подставится" readonly />
             </div>
 
             <!-- Страна производства -->
             <div class="form-group">
-                <label>Страна производство *</label>
+                <label>
+                    <input type="checkbox" class="export-field-checkbox" data-field="country" checked />
+                    Страна производства *
+                </label>
                 <input type="text" id="countryInput" placeholder="Автоматически подставится" readonly />
             </div>
 
-            <!-- НАИМЕНОВАНИЕ ОБОРУДОВАНИЯ -->
+            <!-- Наименование оборудования -->
             <div class="form-group">
-                <label>Наименование оборудования или прибора *</label>
+                <label>
+                    <input type="checkbox" class="export-field-checkbox" data-field="name" checked />
+                    Наименование оборудования или прибора *
+                </label>
                 <div class="input-with-button">
                     <input type="text" id="equipmentName" placeholder="Например: кислородный концентратор" autocomplete="off" />
-                    <button class="btn-find" id="findBtn">
-                        <i class="fas fa-search"></i> Найти
-                    </button>
+                    <button class="btn-find" id="findBtn"><i class="fas fa-search"></i> Найти</button>
                     <div class="suggestions-dropdown" id="suggestionsList"></div>
                 </div>
             </div>
 
-            <!-- МОДЕЛЬ ОБОРУДОВАНИЯ -->
+            <!-- Модель оборудования -->
             <div class="form-group">
-                <label>Модель оборудования *</label>
+                <label>
+                    <input type="checkbox" class="export-field-checkbox" data-field="model" checked />
+                    Модель оборудования *
+                </label>
                 <div class="model-input-wrapper">
                     <input type="text" id="modelInput" placeholder="Например: С856" autocomplete="off" />
                     <div class="suggestions-dropdown" id="modelSuggestionsList"></div>
@@ -101,17 +123,25 @@
 
             <!-- Серийный/Заводской номер -->
             <div class="form-group">
-                <label>Серийный/Заводской номер</label>
+                <label>
+                    <input type="checkbox" class="export-field-checkbox" data-field="serial" checked />
+                    Серийный/Заводской номер
+                </label>
                 <input type="text" id="serialInput" placeholder="Введите серийный номер" />
+            </div>
+
+            <!-- Кнопка экспорта прямо в форме -->
+            <div class="form-group" style="grid-column: span 2; display: flex; gap: 12px; align-items: center; margin-top: 8px;">
+                <button class="btn-export-form" id="exportFormBtn"><i class="fas fa-file-excel"></i> Экспортировать выбранные поля</button>
+                
             </div>
         </div>
     </div>
 
 </div>
 
-<script src="type.js"></script> 
+<script src="type.js"></script>
+<script src="type1.js"></script>
 
-
-
-
+</body>
 </html>
